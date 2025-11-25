@@ -173,36 +173,36 @@ const Profile = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
-      <main className="flex-1 container mx-auto px-4 py-8">
-        <div className="max-w-6xl mx-auto">
-          <div className="flex items-center justify-between mb-8">
+      <main className="flex-1 container mx-auto px-4 py-4 md:py-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 md:mb-8">
             <div>
-              <h1 className="text-3xl md:text-4xl font-bold mb-2">My Profile</h1>
-              <p className="text-muted-foreground">Manage your account settings and preferences</p>
+              <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-2">My Profile</h1>
+              <p className="text-sm md:text-base text-muted-foreground">Manage your account settings and preferences</p>
             </div>
-            <Button variant="outline" onClick={handleSignOut}>
+            <Button variant="outline" size="sm" onClick={handleSignOut} className="w-full sm:w-auto">
               <LogOut className="h-4 w-4 mr-2" />
               Sign Out
             </Button>
           </div>
 
-          <Tabs defaultValue="details" className="space-y-6">
-            <TabsList className="grid w-full grid-cols-4">
-              <TabsTrigger value="details">
-                <User className="h-4 w-4 mr-2" />
-                Details
+          <Tabs defaultValue="details" className="space-y-4 md:space-y-6">
+            <TabsList className="grid w-full grid-cols-4 h-auto">
+              <TabsTrigger value="details" className="text-xs md:text-sm flex flex-col md:flex-row items-center gap-1 md:gap-2 py-2 md:py-2.5">
+                <User className="h-3 w-3 md:h-4 md:w-4" />
+                <span className="hidden sm:inline">Details</span>
               </TabsTrigger>
-              <TabsTrigger value="orders">
-                <Package className="h-4 w-4 mr-2" />
-                Orders
+              <TabsTrigger value="orders" className="text-xs md:text-sm flex flex-col md:flex-row items-center gap-1 md:gap-2 py-2 md:py-2.5">
+                <Package className="h-3 w-3 md:h-4 md:w-4" />
+                <span className="hidden sm:inline">Orders</span>
               </TabsTrigger>
-              <TabsTrigger value="addresses">
-                <MapPin className="h-4 w-4 mr-2" />
-                Addresses
+              <TabsTrigger value="addresses" className="text-xs md:text-sm flex flex-col md:flex-row items-center gap-1 md:gap-2 py-2 md:py-2.5">
+                <MapPin className="h-3 w-3 md:h-4 md:w-4" />
+                <span className="hidden sm:inline">Addresses</span>
               </TabsTrigger>
-              <TabsTrigger value="billing">
-                <CreditCard className="h-4 w-4 mr-2" />
-                Billing
+              <TabsTrigger value="billing" className="text-xs md:text-sm flex flex-col md:flex-row items-center gap-1 md:gap-2 py-2 md:py-2.5">
+                <CreditCard className="h-3 w-3 md:h-4 md:w-4" />
+                <span className="hidden sm:inline">Billing</span>
               </TabsTrigger>
             </TabsList>
 
@@ -295,28 +295,28 @@ const Profile = () => {
                 <CardContent>
                   {orders.length === 0 ? (
                     <div className="text-center py-8">
-                      <Package className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-                      <p className="text-muted-foreground">No orders yet</p>
-                      <Button className="mt-4" onClick={() => navigate("/shop")}>
+                      <Package className="h-10 w-10 md:h-12 md:w-12 mx-auto text-muted-foreground mb-4" />
+                      <p className="text-sm md:text-base text-muted-foreground">No orders yet</p>
+                      <Button className="mt-4" size="sm" onClick={() => navigate("/shop")}>
                         Start Shopping
                       </Button>
                     </div>
                   ) : (
                     <div className="space-y-4">
                       {orders.map((order) => (
-                        <div key={order.id} className="border rounded-lg p-4">
-                          <div className="flex items-center justify-between mb-2">
+                        <div key={order.id} className="border rounded-lg p-3 md:p-4">
+                          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
                             <div>
-                              <p className="font-semibold">Order #{order.order_number}</p>
-                              <p className="text-sm text-muted-foreground">
+                              <p className="text-sm md:text-base font-semibold">Order #{order.order_number}</p>
+                              <p className="text-xs md:text-sm text-muted-foreground">
                                 {new Date(order.created_at).toLocaleDateString()}
                               </p>
                             </div>
-                            <Badge>
+                            <Badge className="w-fit">
                               {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
                             </Badge>
                           </div>
-                          <p className="text-lg font-semibold">£{order.total_amount.toFixed(2)}</p>
+                          <p className="text-base md:text-lg font-semibold">£{order.total_amount.toFixed(2)}</p>
                         </div>
                       ))}
                     </div>
@@ -334,26 +334,26 @@ const Profile = () => {
                 <CardContent>
                   {addresses.length === 0 ? (
                     <div className="text-center py-8">
-                      <MapPin className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-                      <p className="text-muted-foreground">No addresses saved</p>
-                      <Button className="mt-4" variant="outline">
+                      <MapPin className="h-10 w-10 md:h-12 md:w-12 mx-auto text-muted-foreground mb-4" />
+                      <p className="text-sm md:text-base text-muted-foreground">No addresses saved</p>
+                      <Button className="mt-4" size="sm" variant="outline">
                         Add Address
                       </Button>
                     </div>
                   ) : (
-                    <div className="grid gap-4 md:grid-cols-2">
+                    <div className="grid gap-4 sm:grid-cols-2">
                       {addresses.map((address) => (
-                        <div key={address.id} className="border rounded-lg p-4">
+                        <div key={address.id} className="border rounded-lg p-3 md:p-4">
                           <div className="flex items-start justify-between mb-2">
-                            <Badge variant={address.is_default ? "default" : "secondary"}>
+                            <Badge variant={address.is_default ? "default" : "secondary"} className="text-xs">
                               {address.is_default ? "Default" : address.address_type}
                             </Badge>
                           </div>
-                          <p className="font-medium">{address.street_address}</p>
-                          <p className="text-sm text-muted-foreground">
+                          <p className="text-sm md:text-base font-medium">{address.street_address}</p>
+                          <p className="text-xs md:text-sm text-muted-foreground">
                             {address.city}, {address.state && `${address.state}, `}{address.postal_code}
                           </p>
-                          <p className="text-sm text-muted-foreground">{address.country}</p>
+                          <p className="text-xs md:text-sm text-muted-foreground">{address.country}</p>
                         </div>
                       ))}
                     </div>
@@ -370,9 +370,9 @@ const Profile = () => {
                 </CardHeader>
                 <CardContent>
                   <div className="text-center py-8">
-                    <CreditCard className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-                    <p className="text-muted-foreground">No payment methods saved</p>
-                    <Button className="mt-4" variant="outline">
+                    <CreditCard className="h-10 w-10 md:h-12 md:w-12 mx-auto text-muted-foreground mb-4" />
+                    <p className="text-sm md:text-base text-muted-foreground">No payment methods saved</p>
+                    <Button className="mt-4" size="sm" variant="outline">
                       Add Payment Method
                     </Button>
                   </div>
