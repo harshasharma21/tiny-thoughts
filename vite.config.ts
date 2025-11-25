@@ -7,7 +7,7 @@ import { componentTagger } from "lovable-tagger";
 export default defineConfig(({ mode }) => ({
   server: {
     allowedHosts: [
-      "https://tiny-thoughts.onrender.com",  
+      "tiny-thoughts.onrender.com",  
     ],
     host: true,
     port: 8080,
