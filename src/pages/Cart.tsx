@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -9,8 +9,25 @@ import { Input } from "@/components/ui/input";
 import { Minus, Plus, Trash2, ArrowRight, ShoppingBag } from "lucide-react";
 import { mockProducts } from "@/data/mockData";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
+import { User as SupabaseUser } from "@supabase/supabase-js";
 
 const Cart = () => {
+  const [user, setUser] = useState<SupabaseUser | null>(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
+    });
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      setUser(session?.user ?? null);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
   // Mock cart items
   const [cartItems, setCartItems] = useState([
     { ...mockProducts[0], quantity: 2 },
@@ -35,6 +52,16 @@ const Cart = () => {
   const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
   const shipping = subtotal > 100 ? 0 : 9.99;
   const total = subtotal + shipping;
+
+  const handleCheckout = () => {
+    if (!user) {
+      toast.error("Please sign in to proceed with checkout");
+      navigate('/auth');
+      return;
+    }
+
+    toast.success("Proceeding to checkout...");
+  };
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -164,7 +191,7 @@ const Cart = () => {
                     <span className="text-primary">£{total.toFixed(2)}</span>
                   </div>
 
-                  <Button className="w-full mb-3" size="lg">
+                  <Button className="w-full mb-3" size="lg" onClick={handleCheckout}>
                     Proceed to Checkout
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Button>

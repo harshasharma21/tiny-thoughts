@@ -9,6 +9,7 @@ import Category from "./pages/Category";
 import Cart from "./pages/Cart";
 import Liked from "./pages/Liked";
 import FastOrder from "./pages/FastOrder";
+import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -26,6 +27,7 @@ const App = () => (
           <Route path="/cart" element={<Cart />} />
           <Route path="/liked" element={<Liked />} />
           <Route path="/fast-order" element={<FastOrder />} />
+          <Route path="/auth" element={<Auth />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

@@ -1,42 +1,172 @@
 import { Product, Category } from "@/types/product";
 
 export const categories: Category[] = [
-  {
-    id: "15",
-    slug: "food-cupboard",
+  // Level 1: Main categories
+  { 
+    id: "15", 
+    slug: "food-cupboard", 
     name: "Food Cupboard",
-    productCount: 245,
+    productCount: 145 
   },
-  {
-    id: "114",
-    slug: "food-cupboard-sauces-pastes-pasta-passata-pesto",
+  { 
+    id: "16", 
+    slug: "beverages", 
+    name: "Beverages",
+    productCount: 67 
+  },
+  { 
+    id: "17", 
+    slug: "frozen-foods", 
+    name: "Frozen Foods",
+    productCount: 89 
+  },
+  { 
+    id: "19", 
+    slug: "snacks", 
+    name: "Snacks",
+    productCount: 54 
+  },
+
+  // Level 2: Subcategories of Food Cupboard
+  { 
+    id: "114", 
+    slug: "sauces-pastes-pasta", 
     name: "Sauces, Pastes & Pasta",
     parentId: "15",
-    productCount: 48,
+    productCount: 42 
   },
-  {
-    id: "16",
-    slug: "beverages",
-    name: "Beverages",
-    productCount: 152,
+  { 
+    id: "115", 
+    slug: "canned-goods", 
+    name: "Canned Goods",
+    parentId: "15",
+    productCount: 38 
   },
-  {
-    id: "17",
-    slug: "frozen-foods",
-    name: "Frozen Foods",
-    productCount: 189,
+  { 
+    id: "116", 
+    slug: "rice-grains", 
+    name: "Rice & Grains",
+    parentId: "15",
+    productCount: 35 
   },
-  {
-    id: "18",
-    slug: "fresh-produce",
-    name: "Fresh Produce",
-    productCount: 98,
+
+  // Level 3: Sub-subcategories of Sauces, Pastes & Pasta
+  { 
+    id: "pasta-passata", 
+    slug: "pasta-passata-pesto", 
+    name: "Pasta, Passata & Pesto",
+    parentId: "114",
+    productCount: 18 
   },
-  {
-    id: "19",
-    slug: "snacks-confectionery",
-    name: "Snacks & Confectionery",
-    productCount: 176,
+  { 
+    id: "asian-sauces", 
+    slug: "asian-sauces", 
+    name: "Asian Sauces",
+    parentId: "114",
+    productCount: 15 
+  },
+  { 
+    id: "cooking-pastes", 
+    slug: "cooking-pastes", 
+    name: "Cooking Pastes",
+    parentId: "114",
+    productCount: 9 
+  },
+
+  // Level 2: Subcategories of Frozen Foods
+  { 
+    id: "frozen-meat", 
+    slug: "frozen-meat", 
+    name: "Frozen Meat",
+    parentId: "17",
+    productCount: 32 
+  },
+  { 
+    id: "frozen-vegetables", 
+    slug: "frozen-vegetables", 
+    name: "Frozen Vegetables",
+    parentId: "17",
+    productCount: 28 
+  },
+
+  // Level 3: Sub-subcategories of Frozen Meat
+  { 
+    id: "frozen-chicken", 
+    slug: "frozen-chicken", 
+    name: "Frozen Chicken",
+    parentId: "frozen-meat",
+    productCount: 15 
+  },
+  { 
+    id: "frozen-beef", 
+    slug: "frozen-beef", 
+    name: "Frozen Beef",
+    parentId: "frozen-meat",
+    productCount: 17 
+  },
+
+  // Level 2: Subcategories of Beverages
+  { 
+    id: "soft-drinks", 
+    slug: "soft-drinks", 
+    name: "Soft Drinks",
+    parentId: "16",
+    productCount: 35 
+  },
+  { 
+    id: "juices", 
+    slug: "juices", 
+    name: "Juices",
+    parentId: "16",
+    productCount: 32 
+  },
+
+  // Level 3: Sub-subcategories of Soft Drinks
+  { 
+    id: "cola-drinks", 
+    slug: "cola-drinks", 
+    name: "Cola Drinks",
+    parentId: "soft-drinks",
+    productCount: 18 
+  },
+  { 
+    id: "lemonade", 
+    slug: "lemonade", 
+    name: "Lemonade",
+    parentId: "soft-drinks",
+    productCount: 17 
+  },
+
+  // Level 2: Subcategories of Snacks
+  { 
+    id: "chips-crisps", 
+    slug: "chips-crisps", 
+    name: "Chips & Crisps",
+    parentId: "19",
+    productCount: 28 
+  },
+  { 
+    id: "nuts-seeds", 
+    slug: "nuts-seeds", 
+    name: "Nuts & Seeds",
+    parentId: "19",
+    productCount: 26 
+  },
+
+  // Level 3: Sub-subcategories of Chips & Crisps
+  { 
+    id: "potato-chips", 
+    slug: "potato-chips", 
+    name: "Potato Chips",
+    parentId: "chips-crisps",
+    productCount: 15 
+  },
+  { 
+    id: "tortilla-chips", 
+    slug: "tortilla-chips", 
+    name: "Tortilla Chips",
+    parentId: "chips-crisps",
+    productCount: 13 
   },
 ];
 
@@ -50,7 +180,7 @@ export const mockProducts: Product[] = [
     price: 2.45,
     images: ["/placeholder.svg"],
     category: "food-cupboard",
-    subcategory: "sauces-pastes-pasta",
+    subcategory: "pasta-passata-pesto",
     brand: "Italian Harvest",
     packSize: "500g",
     unit: "jar",
@@ -66,7 +196,7 @@ export const mockProducts: Product[] = [
     price: 4.95,
     images: ["/placeholder.svg"],
     category: "food-cupboard",
-    subcategory: "sauces-pastes-pasta",
+    subcategory: "pasta-passata-pesto",
     brand: "Italian Harvest",
     packSize: "190g",
     unit: "jar",
@@ -82,7 +212,7 @@ export const mockProducts: Product[] = [
     price: 1.85,
     images: ["/placeholder.svg"],
     category: "food-cupboard",
-    subcategory: "sauces-pastes-pasta",
+    subcategory: "pasta-passata-pesto",
     brand: "Pasta Prima",
     packSize: "500g",
     unit: "pack",
@@ -98,7 +228,7 @@ export const mockProducts: Product[] = [
     price: 3.25,
     images: ["/placeholder.svg"],
     category: "food-cupboard",
-    subcategory: "sauces-pastes-pasta",
+    subcategory: "cooking-pastes",
     brand: "Mediterranean Foods",
     packSize: "200g",
     unit: "tube",
@@ -114,7 +244,7 @@ export const mockProducts: Product[] = [
     price: 3.75,
     images: ["/placeholder.svg"],
     category: "food-cupboard",
-    subcategory: "sauces-pastes-pasta",
+    subcategory: "asian-sauces",
     brand: "Italian Harvest",
     packSize: "350g",
     unit: "jar",
@@ -130,7 +260,7 @@ export const mockProducts: Product[] = [
     price: 1.95,
     images: ["/placeholder.svg"],
     category: "food-cupboard",
-    subcategory: "sauces-pastes-pasta",
+    subcategory: "pasta-passata-pesto",
     brand: "Pasta Prima",
     packSize: "500g",
     unit: "pack",
@@ -146,6 +276,7 @@ export const mockProducts: Product[] = [
     price: 3.45,
     images: ["/placeholder.svg"],
     category: "beverages",
+    subcategory: "juices",
     brand: "Fresh Grove",
     packSize: "1L",
     unit: "carton",
@@ -161,10 +292,43 @@ export const mockProducts: Product[] = [
     price: 1.25,
     images: ["/placeholder.svg"],
     category: "beverages",
+    subcategory: "soft-drinks",
     brand: "Alpine Springs",
     packSize: "500ml",
     unit: "bottle",
     stock: 580,
+    inStock: true,
+  },
+  {
+    id: "9",
+    sku: "COL-001",
+    name: "Classic Cola",
+    description: "Refreshing cola soft drink with the perfect balance of sweetness.",
+    shortDescription: "Classic cola drink",
+    price: 1.45,
+    images: ["/placeholder.svg"],
+    category: "beverages",
+    subcategory: "cola-drinks",
+    brand: "FizzPop",
+    packSize: "500ml",
+    unit: "bottle",
+    stock: 420,
+    inStock: true,
+  },
+  {
+    id: "10",
+    sku: "SNK-001",
+    name: "Sea Salt Potato Chips",
+    description: "Crispy potato chips with a hint of sea salt. Perfect snack for any occasion.",
+    shortDescription: "Sea salt chips",
+    price: 2.25,
+    images: ["/placeholder.svg"],
+    category: "snacks",
+    subcategory: "potato-chips",
+    brand: "Crispy Bites",
+    packSize: "150g",
+    unit: "bag",
+    stock: 280,
     inStock: true,
   },
 ];

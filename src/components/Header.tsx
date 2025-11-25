@@ -1,10 +1,49 @@
-import { Link } from "react-router-dom";
-import { ShoppingCart, Heart, Search, User, Phone, Mail } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import { ShoppingCart, Heart, Search, User, Phone, Mail, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
+import { useState, useEffect } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { User as SupabaseUser } from "@supabase/supabase-js";
+import { useToast } from "@/hooks/use-toast";
 
 export const Header = () => {
+  const [user, setUser] = useState<SupabaseUser | null>(null);
+  const navigate = useNavigate();
+  const { toast } = useToast();
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
+    });
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      setUser(session?.user ?? null);
+      if (event === 'SIGNED_IN') {
+        navigate('/');
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, [navigate]);
+
+  const handleSignOut = async () => {
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
+    } else {
+      toast({
+        title: "Signed out",
+        description: "You have been signed out successfully.",
+      });
+    }
+  };
+
   return (
     <header className="sticky top-0 z-50 bg-background border-b border-border">
       {/* Top bar */}
@@ -22,10 +61,27 @@ export const Header = () => {
               </a>
             </div>
             <div className="flex items-center gap-4">
-              <Button variant="ghost" size="sm" className="text-primary-foreground hover:bg-primary-foreground/10">
-                <User className="h-4 w-4 mr-2" />
-                Sign In
-              </Button>
+              {user ? (
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  onClick={handleSignOut}
+                  className="text-primary-foreground hover:bg-primary-foreground/10"
+                >
+                  <LogOut className="h-4 w-4 mr-2" />
+                  Sign Out
+                </Button>
+              ) : (
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  onClick={() => navigate('/auth')}
+                  className="text-primary-foreground hover:bg-primary-foreground/10"
+                >
+                  <User className="h-4 w-4 mr-2" />
+                  Sign In
+                </Button>
+              )}
             </div>
           </div>
         </div>
@@ -98,7 +154,7 @@ export const Header = () => {
             </li>
             <li>
               <Button variant="ghost" className="rounded-none h-12" asChild>
-                <Link to="/shop/category/fresh-produce-18">Fresh Produce</Link>
+                <Link to="/shop/category/snacks-19">Snacks</Link>
               </Button>
             </li>
             <li>
